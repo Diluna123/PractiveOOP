@@ -4,6 +4,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Comparator;
 
 class Employee {
 
@@ -67,6 +68,8 @@ interface EmployeeService{
     void findHighestPaidEmployeeByDepartment(String department);
     void displayDepartmentAverageSalary(String department);
     void displayDepartmentSalaryReport(String department);
+//    sorting methods
+    void displayEmployeeBySalary();
 
 }
 
@@ -362,6 +365,24 @@ class EmployeeManager implements EmployeeService {
         System.out.println("-------------------------------");
 
 
+
+
+
+
+    }
+
+    @Override
+    public void displayEmployeeBySalary() {
+
+
+
+        ArrayList <Employee> sortedEmployee = new ArrayList<>(employees.values());
+
+        sortedEmployee.sort(Comparator.comparingDouble(Employee::getSalary));
+
+        for(Employee employee: sortedEmployee){
+            System.out.println(employee.getEmployeeName() + " :-"+ employee.getSalary());
+        }
 
 
 
