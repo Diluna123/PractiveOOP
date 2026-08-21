@@ -71,6 +71,7 @@ interface EmployeeService{
 //    sorting methods
     void displayEmployeeBySalary();
     void displayEmployeeSalaryDescending();
+    void displayEmployeeByDepartmentAndSalary();
 
 }
 
@@ -401,6 +402,26 @@ class EmployeeManager implements EmployeeService {
 
 
         }
+
+
+    }
+
+    @Override
+    public void displayEmployeeByDepartmentAndSalary() {
+        ArrayList<Employee> sortedEmployeeList = new ArrayList<>(employees.values());
+
+
+       sortedEmployeeList.sort(Comparator.comparing(Employee::getDepartment).thenComparingDouble(Employee::getSalary));
+
+       for(Employee employee: sortedEmployeeList){
+           System.out.println("Department :"+employee.getDepartment());
+           System.out.println("------------------------------");
+           System.out.println("Name : " + employee.getEmployeeName());
+           System.out.println("Salary :" +employee.getSalary());
+           System.out.println(" ");
+       }
+
+
 
 
     }
