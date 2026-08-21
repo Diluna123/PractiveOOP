@@ -72,6 +72,10 @@ interface EmployeeService{
     void displayEmployeeBySalary();
     void displayEmployeeSalaryDescending();
     void displayEmployeeByDepartmentAndSalary();
+    void displayEmployeeByDepartmentAndSalaryDescending();
+//    sorting Challenges
+    void displayTop3HeightsPaidEmployees();
+
 
 }
 
@@ -420,6 +424,56 @@ class EmployeeManager implements EmployeeService {
            System.out.println("Salary :" +employee.getSalary());
            System.out.println(" ");
        }
+
+
+
+
+    }
+
+    @Override
+    public void displayEmployeeByDepartmentAndSalaryDescending() {
+
+        ArrayList<Employee> sortedEmployeeList = new ArrayList<>(employees.values());
+
+        sortedEmployeeList.sort(Comparator.comparing(Employee::getDepartment).thenComparing(Employee::getSalary, Comparator.reverseOrder()));
+        for(Employee employee: sortedEmployeeList){
+            System.out.println("Department :"+employee.getDepartment());
+            System.out.println("Name :"+ employee.getEmployeeName() + " \nSalary :"+employee.getSalary());
+            System.out.println(" ");
+
+        }
+
+    }
+
+    @Override
+    public void displayTop3HeightsPaidEmployees() {
+        ArrayList<Employee> list =
+                new ArrayList<>(employees.values());
+
+        if(list.isEmpty()) {
+            System.out.println("No employees found");
+            return;
+        }
+
+        list.sort(
+                Comparator.comparingDouble(Employee::getSalary)
+                        .reversed()
+        );
+
+        int limit = Math.min(3, list.size());
+
+        for(int i = 0; i < limit; i++) {
+
+            Employee employee = list.get(i);
+
+            System.out.println("Rank: " + (i + 1));
+            System.out.println("Name: " + employee.getEmployeeName());
+            System.out.println("Department: " + employee.getDepartment());
+            System.out.println("Salary: " + employee.getSalary());
+            System.out.println("----------------------");
+        }
+
+
 
 
 
