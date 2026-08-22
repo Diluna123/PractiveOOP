@@ -76,6 +76,7 @@ interface EmployeeService{
 //    sorting Challenges
     void displayTop3HeightsPaidEmployees();
     void displayTopPaidEmployeesByDepartment();
+    void displayDepartmentSalaryStatics();
 
 
 }
@@ -520,13 +521,58 @@ class EmployeeManager implements EmployeeService {
             System.out.println("Name:"+ highestEmployee.getEmployeeName());
             System.out.println("Salary:"+ highestEmployee.getSalary());
 
+        }
+
+    }
+
+    @Override
+    public void displayDepartmentSalaryStatics() {
+
+        for(Map.Entry<String, ArrayList<Employee>> entry : employeesByDepartment.entrySet()){
+
+            String department = entry.getKey();
+            ArrayList<Employee> employeeArrayList = entry.getValue();
+
+            Employee highest = null;
+            Employee lowest = null;
+            double departmentTotalSalary = 0;
+
+            for(Employee employee : employeeArrayList){
+                departmentTotalSalary += employee.getSalary();
+                if(highest == null || employee.getSalary() > highest.getSalary()){
+                    highest = employee;
+                }
+                if(lowest == null || employee.getSalary() < lowest.getSalary()){
+                    lowest = employee;
+                }
+
+            }
+            double averageSalary = departmentTotalSalary /employeeArrayList.size();
+
+            if(highest == null){
+                System.out.println("Highest Employee not found !"+ department);
+                continue;
+
+            }
+            if(lowest == null){
+                System.out.println("Lowest Employee not found !"+ department);
+                continue;
+
+            }
 
 
+            System.out.println("================="+department+"======================");
+            System.out.println("Employee Count :"+ employeeArrayList.size());
+            System.out.println("Total Salary : "+ departmentTotalSalary);
+            System.out.println("Average Salary : "+averageSalary);
+            System.out.println("Highest Salary : "+highest.getSalary());
+            System.out.println("Highest Paid : "+highest.getEmployeeName());
+            System.out.println("Lowest Salary :"+lowest.getSalary());
+            System.out.println("Lowest Paid : "+ lowest.getEmployeeName());
+            System.out.println("-------------------------------");
 
 
         }
-
-
 
     }
 }
