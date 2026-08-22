@@ -75,6 +75,7 @@ interface EmployeeService{
     void displayEmployeeByDepartmentAndSalaryDescending();
 //    sorting Challenges
     void displayTop3HeightsPaidEmployees();
+    void displayTopPaidEmployeesByDepartment();
 
 
 }
@@ -475,6 +476,55 @@ class EmployeeManager implements EmployeeService {
 
 
 
+
+
+
+    }
+
+    @Override
+    public void displayTopPaidEmployeesByDepartment() {
+
+//        for(Map.Entry<String, ArrayList<Employee>> entry : employeesByDepartment.entrySet()){
+//            String department = entry.getKey();
+//            ArrayList<Employee>  employeeArrayList = entry.getValue();
+//
+//            employeeArrayList.sort(Comparator.comparingDouble(Employee::getSalary).reversed());
+//
+//            Employee highestPaidEmployee = employeeArrayList.get(0);
+//
+//
+//            System.out.println("Department" + department);
+//            System.out.println("Name :"+ highestPaidEmployee.getEmployeeName());
+//            System.out.println("Salary :"+highestPaidEmployee.getSalary());
+//
+//
+//        }
+
+        for(Map.Entry<String, ArrayList<Employee>> entry : employeesByDepartment.entrySet()){
+            String department = entry.getKey();
+            ArrayList<Employee> employeeArrayList = entry.getValue();
+
+            Employee highestEmployee = null;
+            for(Employee employee: employeeArrayList){
+                if(highestEmployee == null || employee.getSalary() > highestEmployee.getSalary()){
+                    highestEmployee = employee;
+                }
+            }
+
+            if(highestEmployee == null){
+                System.out.println("Employee not found in "+department);
+                continue;
+            }
+
+            System.out.println("Department :"+ department);
+            System.out.println("Name:"+ highestEmployee.getEmployeeName());
+            System.out.println("Salary:"+ highestEmployee.getSalary());
+
+
+
+
+
+        }
 
 
 
